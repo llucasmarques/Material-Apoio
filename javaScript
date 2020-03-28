@@ -1,0 +1,171 @@
+<!-- Este é um material básico de apoio, foi utilizado para o aprendizado e também para consulta de futuras dúvidas em JavaScript -->
+<html>
+
+<head>
+    <title>
+        Material de apoio JavaScript
+    </title>
+</head>
+
+<body>
+
+    <div id="app">
+        <button onClick="mostraAlerta()">
+            Clique em mim!
+        </button>
+        <input onkeypress="mostraAlerta()" type="text">
+        <br><br><br><br>
+        <button class="botao">Adicionar</button>
+        <input type="text" name="nome" id="nome">
+
+    </div>
+
+
+    <script>
+        //Scripts
+
+        //Variáveis, não é preciso definir o tipo da variável, não possui tipagem estática, é possível modificar o conteúdo ao longo da execução
+        //Ela pode começar como string por exemplo e no meio do script ser atribuido um valor float.
+        var nome = "Lucas";
+        var peso = 88.3;
+        var humano = true;
+        var filmes_favoritos = ['Senhor dos anéis', 'Hobbit', 'Whiplash', 'Interestelar'];
+        var preferences = {
+            jogos: 'World of Warcraft',
+            musica: 'lo-fi',
+            plataform: 'pc/xbox',
+            mobile: 'android',
+            free_time: 'read',
+            dev: 'games/apps',
+        };
+
+
+        //Operações matemáticas
+        var x = 10, y = 5, z = "10";
+        var soma = x + y;
+        var subtracao = x - y;
+        var multiplicacao = x * y;
+        var divisao = x / y;
+        var resto_divisao = x % y;
+
+        var concatenado = z + x; //O Javascript entende isso como uma concatenação de um número com uma string
+
+        x += 1; //Incrementar o valor atual da variável
+        x -= 1; //Decrementa o valor atual da variável, isso funciona para todos os outros tipos anteriores de operação, inclusive utilizando outras variáveis, basicamente
+        //É uma abstração da expressão "x = x + 1" => " x +=1 ",  " x = x + y " => "x += y"  
+
+
+        //Função 
+        function somafuncao(parametro1, parametro2, parametroN, parametroK) {
+            //Corpo da execução da função após ser chamada
+            var resultado = parametro1 + parametro2 + parametroN + parametroK; //Ela só é visível somente dentro da função
+
+            return resultado; //Retorna o resultado da função
+        }
+        //Chamada da função
+        var resultado = somafuncao(1, 2, 3, 4);
+
+
+        //Operadores Lógicos 
+        //   '=='  - Verifica a igualdade entre os valores
+        //   '===' - Verifica a igualdade dos valores e o tipo da variável
+        //   '&&'  - 'AND' condição que precisa que ambas operações sejam verdadeiras
+        //   '||'  - 'OR'  condição que pelo menos uma das operações seja verdade
+        //   '!='  - 'NOT' condição que é satisfeita quando o valor é diferente do outro
+        //   '!==' -  Verifica se o valor e o tipo da variável é diferente 
+        //Condicionais com IF (condicional com if, if-else, else) e SWITCH (verifica a igualdade de valores da variável múltiplas vezes)
+        function verifica(qualidade) {
+
+            if (qualidade <= 360) {
+                return 'A qualidade do seu vídeo está ruim';
+            } else if (qualidade <= 720 && qualidade > 360) {
+                return 'A qualidade do seu vídeo está boa';
+            } else if (qualidade > 720) {
+                return 'A qualidade do seu vídeo está excelente!';
+            }
+
+            switch (qualidade) {
+                case '360':
+                    return 'A qualidade do seu vídeo está ruim';
+                case '720':
+                    return 'A qualidade do seu vídeo está boa';
+                case '1080':
+                    return 'A qualidade do seu vídeo está excelente!';
+            }
+
+        }
+        resultado = verifica(360);
+
+        resultado = 360;
+        //Quando tem-se uma verificação e o retorno dela é apelas uma linha de código, podemos utilizar uma prática reduzida do IF ELSE, chamada de condição Ternária
+        //utilizando '?' representando o resultado da primeira condição e o ':' como o resultado que não satisfaz a condição
+        var retorno = (resultado <= 360) ? 'A qualidade está ruim' : 'A qualidade está boa';
+
+
+        //Estruturas de repetição com FOR e WHILE
+        for (var i = 0; i <= 100; i++) { //Quando eu souber o valor do intervalo
+            //console.log(i);
+        }
+
+        var j = 0;
+        while (j < 100) { //Quando eu não sei quantas vezes o fluxo será executado
+            j++;
+            //console.log(j);
+        }
+
+
+        //Intervalo e TimeOut (Medida do tempo em milisegundos)
+        function exibeAlgo() {
+            //console.log('Estou exibindo');
+        }
+
+        setInterval(exibeAlgo, 1000); //Quero executar essa função acada 1 segundo, a cada intervalo de tempo que eu escolher 
+        setTimeout(exibeAlgo, 1000); //Executa a função após um delay do tempo definido
+
+    </script>
+
+    <script>
+        //Manipular DOM no documento
+        //OnClick - Quando for pressionado, dispara o evento
+        //OnMouseOver - Quando passa o mouse por cima do elemento, dispara o evento
+        //Onkey - quando pressionado algum botao.. etc..
+        function mostraAlerta() {
+            alert('Botão');
+        }
+
+        //Buscar informação no html para fazer algo
+        var inputElement =  document.getElementById('nome'); //Armazenar a referência pelo ID
+        inputElement = document.getElementsByTagName('input')[0]; //Retorna um vetor, se eu quiser algum dos elementos, posso utilizar como um 'segundo parametro' document.getElementsByTagName('')[0]
+        inputElement = document.getElementsByClassName('botao'); //A mesma da tag mas busca todos os elementos com a mesma class e retorna um vetor
+
+        inputElement = document.querySelector('body div#app input[name=nome]'); //permite percorrer pela DOM até encontrar o elemento, quero o input com name = "nome", dentro do body, dentro da div com id app
+        inputElement = document.querySelectorAll('body div#app input'); //O mesmo do anterior mas encontra todos com esse mesmo caminho
+
+        var btnElement = document.querySelector('button.botao'); 
+        btnElement.onclick = function(){ //Posso fazer o que eu quiser depois de ter a referencia do meu elemento, sem precisar passar no html a chamada da função, para não poluir o HTML
+            alert('Botao');
+        }
+
+        //Criar novos elementos pelo JS
+        var linkElement = document.createElement('a'); //Cria o elemento com a tag "a"
+        linkElement.setAttribute('href', 'http://www.facebook.com.br'); //Seta o atributo
+        linkElement.setAttribute('target', '_blank');
+        var textElement = document.createTextNode('Acessar o facebook');
+        linkElement.appendChild(textElement); //Seta o texto como filho do link
+
+        var containerElement = document.querySelector('#app'); //Seleciona a div com o ID
+        containerElement.appendChild(linkElement); //Coloca o elemento dentro do corpo
+
+        var buttonElement = document.querySelector('button'); //Seleciona o primeiro botao
+        containerElement.removeChild(buttonElement); //Remove o botao filho da div
+
+        //Passar estilo para os elementos
+        var boxElement = document.querySelector('div');
+        boxElement.style.backgroundColor = 'whitesmoke';
+        boxElement.style.padding = 30;
+
+            console.log(inputElement);
+    </script>
+</body>
+
+</html>
