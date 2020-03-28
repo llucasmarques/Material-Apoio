@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>TODO</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+
+        </ul>
+        <input type="text" placeholder="Digite um todo">
+        <button>Adicionar</button>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        var listElement = document.querySelector('#app ul');
+        var inputElement = document.querySelector('#app input');
+        var buttonElement = document.querySelector('#app button');
+
+
+        var todos = JSON.parse(localStorage.getItem('list_todos')) || [];
+
+        function renderTODOS(){ //Renderiza o TODO
+            listElement.innerHTML = ''; //Remove todo conteúdo que está dentro do list element
+
+            for(todo of todos){ //Para cada string do array
+                var todoElement = document.createElement('li'); //Cria uma linha
+                var todoText = document.createTextNode(todo); //Cria um texto com a string passada do TODO 
+                
+                var pos = todos.indexOf(todo);
+
+                var linkElement = document.createElement('a'); //Cria um link
+                var textLinkElement = document.createTextNode('Excluir'); 
+                linkElement.setAttribute('href', '#');
+                linkElement.setAttribute('onclick', 'excluiTODO('+ pos +')' );
+
+                linkElement.appendChild(textLinkElement);
+
+
+                todoElement.appendChild(todoText); //Coloca o texto como filho do li
+                todoElement.appendChild(linkElement); //Coloca o link como filho do li
+                listElement.appendChild(todoElement); //Coloca o li como filho de ul
+
+
+            }
+        }
+
+        function excluiTODO(posicao){
+            todos.splice(posicao, 1);
+            renderTODOS();
+            salvaNoStorage()
+        }
+
+        renderTODOS();
+
+        function adicionaTODOS(){
+            var todoText = inputElement.value; //Pega o valor do input
+
+            todos.push(todoText); //Adiciona o texto na última posição do array
+            inputElement.value = ''; //Seta como vazio o campo de input
+
+            renderTODOS(); //Renderiza o novo TODO
+            salvaNoStorage()
+        }
+
+        buttonElement.onclick = adicionaTODOS;
+
+
+        function salvaNoStorage(){
+            localStorage.setItem('list_todos', JSON.stringify(todos)); //JSON transforma o vetor em uma string
+        }
+
+
+    </script>
+
+</body>
+
+</html>
