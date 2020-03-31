@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <title>Reaction Test in JS</title>
+
+
+    <style type="text/css">
+
+        #shape{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Teste sua velocidade clicando nos shapes</h1>
+    <p>Seu tempo: <span id="score"></span></p>
+    
+    <div id="shape"></div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+    var start = new Date().getTime(); //Inicia o temporizador
+
+
+    function spawnShape(){ //Funcao para spawnar um novo shape
+
+        var topRandom = Math.random() * 400;
+        var leftRandom = Math.random() * 300;
+        var widthRandom = Math.random() * 400;
+
+        if(Math.random() > 0.5){ //Gera numero aleatorio entre 0 e 1, se for maior que 0.5, deixa o shape mais circular
+            document.getElementById("shape").style.borderRadius = "50%";
+        }else{
+            document.getElementById("shape").style.borderRadius = "0";
+        }
+
+        document.getElementById("shape").style.top = topRandom + "px";
+        document.getElementById("shape").style.left = leftRandom + "px";
+        document.getElementById("shape").style.width = widthRandom + "px";
+        document.getElementById("shape").style.backgroundColor = randomColor(); 
+        document.getElementById("shape").style.display = "block";
+
+        start = new Date().getTime(); //Starta novamente o Timer
+
+        
+    }
+
+    function randomColor(){ //Gera uma cor randomica
+        var letter = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for(var i=0; i < 6; i++){
+            color += letter[Math.floor(Math.random() * 16 )];
+        }
+        return color;
+    }
+
+    function spawnAfterDelay(){ //Funcao que seta um tempo randomico pra chamar a função que spawna outro shape
+        setTimeout(spawnShape, Math.random()* 1000); //Até dois segundos
+    }
+   
+
+    document.getElementById("shape").onclick = function (){ //Quando o shape for clicado
+
+        document.getElementById("shape").style.display = "none"; //Desaparece com o shape
+
+        var end = new Date().getTime(); //Pega o tempo final
+
+        var timeTaken = (end - start) / 1000; //Tempo final - Tempo inicial   ====>  tempo em segundos
+
+        document.getElementById("score").innerHTML = timeTaken + "s";
+
+        spawnAfterDelay();//Spawna outro shape
+    };
+
+
+
+    </script>
+
+</body>
+
+</html>
